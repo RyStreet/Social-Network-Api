@@ -9,6 +9,7 @@ module.exports = {
         .catch((err) => res.status(500).json(err));
     },
 
+    //get one User
     getSingleUser(req,res) {
         User.findOne({_id: req.params.userId})
         .select('-__v')
@@ -19,6 +20,7 @@ module.exports = {
         })
     },
 
+    //create new User
     createUser(req, res){
         User.create(req.body)
         .then((user)=> res.json(user))
@@ -28,6 +30,7 @@ module.exports = {
         });
     },
 
+    //update existing user
     updateUser(req,res){
         User.findOneAndUpdate(
             {_id: req.params.userId},
@@ -39,6 +42,19 @@ module.exports = {
                     ? res.status(404).json({ message: 'No User with this ID'})
                     : res.json(user)
             )
-            .catch((err) => res.status(500).json(err))
+            .catch((err) => res.status(500).json(err));
+    },
+
+    //delete user and user's thoughts
+    deleteUser(req,res){
+        User.findOneAndDelete({ _id: req.params.userId })
+        .then((user) => 
+        !user
+            ? res.status(404).json({message: "No user with that ID"})
+            : Thought.deleteMany({ _id: {$in: user.thought}})
+        )
+        .then(() => res.json({message: 'User and Thoughts deleted'}))
+        .catch((err) => res.status(500).json(err));
     }
+
 }
