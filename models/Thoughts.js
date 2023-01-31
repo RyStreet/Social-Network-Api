@@ -1,4 +1,6 @@
 const { Schema, model } = require('mongoose');
+const Reaction = require("./Reaction")
+//pass in date formatter
 
 const thoughtSchema = new Schema(
     {
@@ -11,16 +13,18 @@ const thoughtSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date().now,
+            
         },
         username: {
-            type: Schema.Types.ObjectId,
-            ref: 'User'
+            type: String,
+            required: true,
         },
-        reactions: [reactionSchema]
+        reactions: [Reaction]
     },
     {
         toJSON: {
             virtuals: true,
+            getters: true,
         },
         id: false
     },
@@ -32,5 +36,7 @@ thoughtSchema.virtual('reactionCount')
 .get(function () {
     return this.reactions.length
 });
+
+
 
 module.exports = Thought;
