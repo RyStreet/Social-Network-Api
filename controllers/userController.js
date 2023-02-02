@@ -76,7 +76,22 @@ module.exports = {
                 ? res.status(404).json({message: "No user with that ID"})
                 : res.json(user)
         })
-        .catch((err) => res.status(500).json(err))
+        .catch((err) => res.status(500).json(err));
+    },
 
+    deleteFriend(req,res){
+        User.findOneAndUpdate(
+            {_id: req.params.id},
+            {$pull: {friends: req.params.friendId}},
+            {new: true}
+            )
+            .populate({path: 'friends', select: ('-__v')})
+            .select('-__v')
+            .then((user) => {
+                !user
+                    ? res.status(404).json({message: "No user with that ID"})
+                    : res.json(user)
+            })
+            .catch((err) => res.status(500).json(err));
     }
 }
