@@ -4,7 +4,10 @@ module.exports = {
 
     //get all Users
     getUsers(req,res) {
-        User.find()
+        User.find({})
+        .populate({path: 'thoughts', select: '-__v'})
+        .populate({path: "friends", select: '-__v'})
+        .select('-__v')
         .then((users) => res.json(users))
         .catch((err) => res.status(500).json(err));
     },
@@ -13,6 +16,7 @@ module.exports = {
     getSingleUser(req,res) {
         User.findOne({_id: req.params.userId})
         .populate({path: 'thoughts', select: '-__v'})
+        .populate({path: "friends", select: '-__v'})
         .select('-__v')
         .then((user) => {
             !user
