@@ -17,7 +17,7 @@ const userSchema = new Schema(
                 "Please enter a vail email address"
             ]
         },
-        thought: [{
+        thoughts: [{
             type: Schema.Types.ObjectId,
             ref: 'Thought',
         }],

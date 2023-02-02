@@ -1,6 +1,7 @@
 const {Thought, User} = require('../models');
 
 module.exports = {
+
     getThoughts(req,res) {
         Thought.find()
         .then((thoughts) => res.json(thoughts))
@@ -16,5 +17,12 @@ module.exports = {
                 : res.json(thought)
         })
     },
+
+    createThought(req,res) {
+        Thought.create(req.body)
+            .then(_id)
+        }
+    }
+
 
 }
