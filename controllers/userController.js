@@ -67,7 +67,7 @@ module.exports = {
         User.findOneAndUpdate(
             {_id: req.params.id}, 
             {$push :{friends: req.params.friendId}}, 
-            {new: true}
+            {new: true, runValidators: true}
             )
         .populate({path: 'friends', select: ('-__v')})
         .select('-__v')
@@ -83,7 +83,7 @@ module.exports = {
         User.findOneAndUpdate(
             {_id: req.params.id},
             {$pull: {friends: req.params.friendId}},
-            {new: true}
+            {new: true, runValidators: true}
             )
             .populate({path: 'friends', select: ('-__v')})
             .select('-__v')
