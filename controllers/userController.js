@@ -12,11 +12,16 @@ module.exports = {
     //get one User
     getSingleUser(req,res) {
         User.findOne({_id: req.params.userId})
+        .populate({path: 'thoughts', select: '-__v'})
         .select('-__v')
         .then((user) => {
             !user
                 ? res.status(404).json({message: 'No user with that ID'})
                 : res.json(user)
+        })
+        .catch((err)=> {
+            console.error({message: err});
+            return res.status(500).json(err)
         })
     },
 
@@ -45,7 +50,7 @@ module.exports = {
             .catch((err) => res.status(500).json(err));
     },
 
-    //delete user and user's thoughts
+    //delete user and user's thoughts by id
     deleteUser(req,res){
         User.findOneAndDelete({ _id: req.params.userId })
         .then((user) => 
@@ -55,7 +60,23 @@ module.exports = {
         )
         .then(() => res.json({message: 'User and Thoughts deleted'}))
         .catch((err) => res.status(500).json(err));
-    }
+    },
 
     //Enter add friend and remove friend routes
+    addFriend(req,res){
+        User.findOneAndUpdate(
+            {_id: req.params.id}, 
+            {$push :{friends: req.params.friendId}}, 
+            {new: true}
+            )
+        .populate({path: 'friends', select: ('-__v')})
+        .select('-__v')
+        .then((user) => {
+            !user
+                ? res.status(404).json({message: "No user with that ID"})
+                : res.json(user)
+        })
+        .catch((err) => res.status(500).json(err))
+
+    }
 }
