@@ -16,7 +16,7 @@ router.route("/")
     .get(getThoughts);
 
 // directs to /api/thoughts/:id
-router.route("/:id")
+router.route("/:thoughtId")
     .get(getSingleThought)
     .put(updateThought)
     .delete(deleteThought)
