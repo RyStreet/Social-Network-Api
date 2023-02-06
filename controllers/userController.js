@@ -74,8 +74,8 @@ module.exports = {
     //Enter add friend and remove friend routes
     addFriend(req,res){
         User.findOneAndUpdate(
-            {_id: req.params.id}, 
-            {$push :{friends: req.params.friendId}}, 
+            {_id: req.params.userId}, 
+            {$addToSet :{friends: req.params.friendId}}, 
             {new: true, runValidators: true}
             )
         .populate({path: 'friends', select: ('-__v')})
@@ -90,7 +90,7 @@ module.exports = {
 
     deleteFriend(req,res){
         User.findOneAndUpdate(
-            {_id: req.params.id},
+            {_id: req.params.userId},
             {$pull: {friends: req.params.friendId}},
             {new: true, runValidators: true}
             )
