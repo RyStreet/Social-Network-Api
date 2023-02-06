@@ -16,13 +16,13 @@ router.route('/')
     .post(createUser);
 
 // directs to /api/users/:userId
-router.route('/:id')
+router.route('/:userId')
     .get(getSingleUser)
     .put(updateUser)
     .delete(deleteUser)
 
 // direct to /api/users/:userId/friends/friendId
-router.route("/:id/friends/:friendId")
+router.route("/:userId/friends/:friendId")
     .post(addFriend)
     .delete(deleteFriend)
 
