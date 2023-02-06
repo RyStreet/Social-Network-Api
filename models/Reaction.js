@@ -5,7 +5,8 @@ const reactionSchema = new Schema(
     {
         reactionId:{
             type: Schema.Types.ObjectId,
-            default: () => new Types.ObjectId()
+            default: () => new Types.ObjectId(),
+            required: true
         },
         reactionBody:{
             type: String,
@@ -19,8 +20,14 @@ const reactionSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date().now,
-            get: (createdAt) => moment(createdAt).format('MMMM DD YYYY [at] hh mm a')
+            get: (createdAt) => moment(createdAt).format('MMMM DD YYYY [at] hh mm a'),
             //implement getter for timestamp
+            required: true
+        }
+    },
+    {
+        toJSON: {
+            getters: true
         }
     }
 )

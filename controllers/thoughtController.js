@@ -1,6 +1,6 @@
 const {Thought, User} = require('../models');
 const { getUsers } = require('./userController');
-const moment = require("moment")
+
 
 module.exports = {
 
@@ -83,7 +83,7 @@ module.exports = {
     deleteReaction(req,res){
         Thought.findOneAndUpdate(
             {_id: req.params.thoughtId},
-            {$pull: {reactions: {reactionId: params.reactionId}}},
+            {$pull: {reactions: {reactionId: req.params.reactionId}}},
             {new: true, runValidators: true}
         )
         .then((thought) => {
