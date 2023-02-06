@@ -1,5 +1,6 @@
 const {Thought, User} = require('../models');
 const { getUsers } = require('./userController');
+const moment = require("moment")
 
 module.exports = {
 
