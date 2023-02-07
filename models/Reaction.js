@@ -22,7 +22,7 @@ const reactionSchema = new Schema(
             default: Date().now,
             get: (createdAt) => moment(createdAt).format('MMMM DD YYYY [at] hh mm a'),
             //implement getter for timestamp
-            required: true
+            
         }
     },
     {
