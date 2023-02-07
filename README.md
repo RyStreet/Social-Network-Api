@@ -1,7 +1,4 @@
-# Social-Network-Api
-
-
-# **Social Network API in MongoDB**
+# **Social Network API with MongoDB**
 
 ## [RyStreet](https://github.com/RyStreet) 👋
 ___
