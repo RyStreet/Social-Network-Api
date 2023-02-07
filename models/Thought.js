@@ -1,15 +1,14 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 // const Reaction = require("./Reaction")
 //pass in date formatter
 const moment = require("moment")
 
 const reactionSchema = new Schema(
     {
-        // reactionId:{
-        //     type: Schema.Types.ObjectId,
-        //     default: () => new Types.ObjectId(),
-        //     required: true
-        // },
+        reactionId:{
+            type: Schema.Types.ObjectId,
+            default: () => new Types.ObjectId(),
+        },
         reactionBody:{
             type: String,
             required: true,
@@ -32,6 +31,7 @@ const reactionSchema = new Schema(
             getters: true
         },
         id: false
+        
     }
 )
 
